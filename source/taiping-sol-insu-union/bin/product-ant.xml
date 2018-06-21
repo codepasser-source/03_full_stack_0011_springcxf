@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="taiping" basedir="." default="deploy">
+	<tstamp>
+		<format property="today" pattern="yyyyMMdd" offset="0" unit="day" />
+		<format property="buildTime" pattern="HHmmss" />
+	</tstamp>
+
+	<property name="basedir" value="./.." />
+	<property name="projectName" value="taiping-sol-insu-union" />
+	<property name="sshName" value="product-unzip-insu-union.sh" />
+	<property name="server" value="X.X.X.X" />
+
+	<target name="deploy" depends="copy,scp,ssh" />
+
+	<target name="copy">
+		<copy tofile="${basedir}/../deploy/product/${today}/${projectName}.${buildTime}.war" file="${basedir}/target/${projectName}.war" overwrite="true" />
+		<copy tofile="${basedir}/../deploy/product/current/${projectName}.war" file="${basedir}/target/${projectName}.war" overwrite="true" />
+	</target>
+
+	<target name="scp">
+		<scp file="${basedir}/target/${projectName}.war" todir="weblogic@${server}:/home/weblogic/upload" password="weblogic" trust="true" />
+		<scp file="${basedir}/bin/${sshName}" todir="weblogic@${server}:/home/weblogic/upload" password="weblogic" trust="true" />
+	</target>
+
+	<target name="ssh">
+		<sshexec host="${server}" username="weblogic" password="weblogic" trust="true" command="sh /home/weblogic/upload/${sshName}" />
+	</target>
+</project>

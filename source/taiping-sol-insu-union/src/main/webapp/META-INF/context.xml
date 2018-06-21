@@ -1,0 +1,11 @@
+<Context>
+    <Resource driverClassName="oracle.jdbc.OracleDriver"
+            maxActive="1" maxIdle="5" maxWait="-1" name="taiping-datasource-read"
+            password="tpsc_test" type="javax.sql.DataSource" url="jdbc:oracle:thin:@10.4.237.2:1521:orcl"
+            username="tpsc_test" />
+
+    <Resource driverClassName="oracle.jdbc.OracleDriver"
+        maxActive="1" maxIdle="5" maxWait="-1" name="taiping-datasource-write"
+        password="tpsc_test" type="javax.sql.DataSource" url="jdbc:oracle:thin:@10.4.237.2:1521:orcl"
+        username="tpsc_test" />
+</Context>

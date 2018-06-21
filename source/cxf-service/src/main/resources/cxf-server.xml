@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!--依赖spring管理的配置方式 -->
+	<bean id="masterWebService" class="com.matt.damon.cxf.webservice.rest.MasterWebServiceImpl" />
+	<jaxws:endpoint id="masterWebServiceEP" implementor="#masterWebService"
+		address="http://localhost:8080/cxf-service/master" />
+
+	<!-- 不依赖spring的配置方式 -->
+	<!-- <jaxws:endpoint id="masterWebService" implementor="com.matt.damon.cxf.webservice.rest.MasterWebServiceImpl" 
+		address="http://localhost:8080/cxf-service/master" /> -->
+
+</beans>
+

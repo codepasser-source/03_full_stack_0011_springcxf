@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="basePackage" extends="struts-default">
+		<interceptors>
+			<interceptor name="exceptionInterceptor"
+				class="com.taiping.framework.filter.ExceptionInterceptor" />
+			<interceptor-stack name="baseStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="multiselect" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="actionMappingParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<!-- 配置方法级别的校验 -->
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+					<param name="validateAnnotatedMethodOnly">true</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<!-- 异常拦截器 -->
+				<interceptor-ref name="exceptionInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="baseStack" />
+
+		<!-- 未到找Action指向页面 -->
+		<default-action-ref name="_404Page" />
+
+		<global-results>
+			<result name="error" type="freemarker">/WEB-INF/template/error/error_page_500.ftl
+			</result>
+			<result name="exception" type="freemarker">/WEB-INF/template/error/error_page_500.ftl
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+
+		<action name="_404Page">
+			<result type="freemarker">
+				/WEB-INF/template/error/error_page_404.ftl
+			</result>
+		</action>
+
+	</package>
+
+	<!-- <package name="default" namespace="/" extends="basePackage"> <action 
+		name="login" class="com.taiping.framework.action.LoginAction"> <result name="success" 
+		type="redirect">/index.html</result> </action> </package> -->
+
+	<package name="union" extends="basePackage" namespace="union/" />
+
+</struts>
